@@ -1,0 +1,57 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    defaultConfig {
+        minSdkVersion MIN_SDK_VERSION as int
+        targetSdkVersion TARGET_SDK_VERSION as int
+        versionCode VERSION_CODE as int
+        versionName VERSION_NAME
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+
+    /*Rxpermissions*/
+    implementation('com.github.tbruyelle:rxpermissions:0.10.2') { exclude group: 'com.android.support' }
+
+    //Logger
+    implementation 'com.orhanobut:logger:2.2.0'
+
+    /*Jakewharton*/
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    /*崩溃*/
+    implementation 'cat.ereza:customactivityoncrash:2.2.0'
+
+    /*dagger2*/
+    implementation 'com.google.dagger:dagger:2.11'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
+}
+
+publish {
+    artifactId = 'pandora'
+    userOrg = 'kingja'
+    groupId = 'com.kingja.pandora'
+    publishVersion = '1.0.0'
+    desc = 'a common lib used for android developing'
+    website = 'https://github.com/KingJA/VolleySir'
+}
