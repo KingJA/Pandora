@@ -62,13 +62,6 @@ public class EncryptUtil {
         return signature;
     }
 
-    /**
-     * 加密
-     *
-     * @param content  需要加密的内容
-     * @param password 加密密码
-     * @return
-     */
     public static String encrypt(String content, String password) {
         KeyGenerator kgen = null;
         try {
@@ -77,11 +70,11 @@ public class EncryptUtil {
             SecretKey secretKey = kgen.generateKey();
             byte[] enCodeFormat = secretKey.getEncoded();
             SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
-            Cipher cipher = Cipher.getInstance("AES");// 创建密码器
-            cipher.init(Cipher.ENCRYPT_MODE, key);// 初始化
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(Cipher.ENCRYPT_MODE, key);
             byte[] byteContent = content.getBytes("utf-8");
             byte[] result = cipher.doFinal(byteContent);
-            return result.toString();//加密
+            return result.toString();
         } catch (NoSuchAlgorithmException | InvalidKeyException
                 | NoSuchPaddingException | BadPaddingException
                 | UnsupportedEncodingException | IllegalBlockSizeException e) {
@@ -90,13 +83,6 @@ public class EncryptUtil {
         return null;
     }
 
-    /**
-     * 解密
-     *
-     * @param content  待解密内容
-     * @param password 解密密钥
-     * @return
-     */
     public static String decrypt(String content, String password) {
         KeyGenerator kgen = null;
         try {
@@ -105,8 +91,8 @@ public class EncryptUtil {
             SecretKey secretKey = kgen.generateKey();
             byte[] enCodeFormat = secretKey.getEncoded();
             SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
-            Cipher cipher = Cipher.getInstance("AES");// 创建密码器
-            cipher.init(Cipher.DECRYPT_MODE, key);// 初始化
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(Cipher.DECRYPT_MODE, key);
             byte[] result = cipher.doFinal(Base64.decode(content, Base64.DEFAULT));
             String resultStr = new String(result);
             return resultStr; // 解密
